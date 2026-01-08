@@ -1,154 +1,209 @@
-/* Mobile Controls */
-#mobile-controls {
-    display: none;
-    /* Hidden by default, shown on mobile */
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    width: 100%;
-    height: 180px;
-    pointer-events: none;
-    /* Let clicks pass through gaps */
-    padding: 0 20px;
-    box-sizing: border-box;
-    z-index: 100;
-}
-
-.d-pad,
-.action-pad {
-    pointer-events: auto;
-    /* Re-enable clicks on buttons */
-}
-
-.d-pad {
-    position: absolute;
-    bottom: 10px;
-    left: 20px;
-    width: 150px;
-    height: 150px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-}
-
-.action-pad {
-    position: absolute;
-    bottom: 30px;
-    right: 20px;
-}
-
-.d-btn {
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    border-radius: 10px;
-    color: white;
-    font-size: 1.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    touch-action: none;
-    /* Prevent browser zooming/scrolling */
-    user-select: none;
-    -webkit-user-select: none;
-    backdrop-filter: blur(4px);
-}
-
-.d-btn:active,
-.d-btn.active {
-    background: rgba(255, 255, 255, 0.5);
-    transform: scale(0.95);
-}
-
-/* Grid positioning */
-.d-btn.up {
-    grid-column: 2;
-    grid-row: 1;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.d-btn.left {
-    grid-column: 1;
-    grid-row: 2;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.d-btn.right {
-    grid-column: 3;
-    grid-row: 2;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.d-btn.down {
-    grid-column: 2;
-    grid-row: 3;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
-
-.d-center {
-    grid-column: 2;
-    grid-row: 2;
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.action-btn {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: rgba(231, 76, 60, 0.6);
-    border: 3px solid rgba(255, 255, 255, 0.6);
-    font-size: 2.5rem;
-    color: white;
-    cursor: pointer;
-    touch-action: none;
-    user-select: none;
-    -webkit-user-select: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(4px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.action-btn:active,
-.action-btn.active {
-    background: rgba(231, 76, 60, 0.8);
-    transform: scale(0.95);
-}
-
-/* Responsive Scaling */
-canvas {
-    max-width: 100%;
-    height: auto;
-}
+/* ========================
+   MOBILE & RESPONSIVE OVERRIDES
+   ======================== */
 
 @media (max-width: 1024px) {
-    #mobile-controls {
-        display: block;
-        /* Show on tablets/mobile */
+
+    /* 1. Layout Adjustments: Full Screen Dynamic Viewport */
+    body {
+        align-items: flex-start;
+        background: #1e272e;
+        height: 100dvh;
+        /* Use dynamic viewport height */
+        overflow: hidden;
+    }
+
+    #game-container {
+        width: 100vw;
+        height: 100dvh;
+        /* Force full height */
+        max-width: none;
+        max-height: none;
+        border-radius: 0;
+        border: none;
+        padding: 5px;
+        /* Minimal padding */
+        box-shadow: none;
+        background: radial-gradient(circle at center, #2c3e50, #000);
+
+        /* Flex Logic for Stacking */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    /* 2. Top Bar (Score/Level) */
+    #ui-layer {
+        font-size: 1rem;
+        margin-bottom: 5px;
+        flex-shrink: 0;
+        /* Prevent shrinking */
+        padding-top: 10px;
+    }
+
+    /* 3. Canvas Scaling - Maximize Size */
+    canvas {
+        width: 100%;
+        /* Or 98% for margin */
+        height: auto;
+        /* Allow it to grow but not push controls offscreen */
+        max-height: 60vh;
+        object-fit: contain;
+        margin-top: 0;
+        flex-grow: 1;
+        /* Let it take available space */
+    }
+
+    /* 4. Text Scaling for Menu */
+    .game-title {
+        font-size: 2rem;
+    }
+
+    .menu-content {
+        padding: 15px;
+        width: 95%;
+    }
+
+    .difficulty-btn {
+        padding: 12px;
     }
 
     .controls {
         display: none;
-        /* Hide keyboard hint on mobile */
+        /* Hide keyboard hints */
     }
 
-    #game-container {
-        padding: 10px;
-        width: 100%;
-        height: 100vh;
+    /* 5. MOBILE CONTROLS (Positioned below canvas) */
+    #mobile-controls {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        border-radius: 0;
+        /* Active on mobile */
+        position: relative;
+        /* Relative to flow */
+        width: 100%;
+        height: 180px;
+        /* Fixed height for controls area */
+        flex-shrink: 0;
+        /* Keep size stable */
+
+        pointer-events: none;
+        z-index: 500;
+        justify-content: space-between;
+        padding: 10px 20px;
+        align-items: center;
+        /* Center buttons vertically in this area */
+        bottom: auto;
+        /* Reset absolute positioning */
+        left: auto;
     }
 
-    body {
-        align-items: flex-start;
-        /* Better fit for mobile viewports */
+    /* D-PAD Area */
+    .d-pad {
+        pointer-events: auto;
+        width: 150px;
+        height: 150px;
+        position: relative;
+        transform: scale(1.1);
+        /* Slightly bigger */
+        transform-origin: center;
+    }
+
+    .d-btn {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        color: white;
+        font-size: 1.2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(4px);
+        touch-action: none;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    .d-btn:active,
+    .d-btn.active {
+        background: rgba(52, 152, 219, 0.6);
+        transform: scale(0.95);
+    }
+
+    /* Direction Positions */
+    .d-btn.up {
+        top: 0;
+        left: 50px;
+    }
+
+    .d-btn.down {
+        bottom: 0;
+        left: 50px;
+    }
+
+    .d-btn.left {
+        top: 50px;
+        left: 0;
+    }
+
+    .d-btn.right {
+        top: 50px;
+        right: 0;
+    }
+
+    /* ACTION BUTTON Area */
+    .action-pad {
+        pointer-events: auto;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .action-btn {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: rgba(231, 76, 60, 0.6);
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        color: white;
+        touch-action: none;
+        user-select: none;
+        backdrop-filter: blur(4px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .action-btn:active,
+    .action-btn.active {
+        background: rgba(231, 76, 60, 0.9);
+        transform: scale(0.95);
+    }
+
+    .d-center {
+        display: none;
+    }
+}
+
+@media (max-width: 380px) {
+
+    /* Adjust for really small screens even further */
+    #mobile-controls {
+        height: 160px;
+    }
+
+    .d-pad {
+        transform: scale(0.9);
+    }
+
+    .action-btn {
+        width: 70px;
+        height: 70px;
     }
 }
