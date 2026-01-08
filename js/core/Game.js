@@ -114,8 +114,12 @@ export default class Game {
 
         this.levelMessageTimer = 2000;
         this.ui.updateLevel(this.level);
-        // We could add a specific UI method for level message overlay if needed,
-        // effectively reusing status for now or handling it in draw.
+
+        // Ensure state is PLAYING so update loop runs
+        this.state = 'PLAYING';
+
+        // Restart BGM if needed (optional based on design, but good for restart)
+        this.audio.playBGM('bgm');
     }
 
     spawnEnemies() {
