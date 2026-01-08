@@ -133,4 +133,17 @@ export default class AudioManager {
         this.updateGains();
         return this.isSfxMuted;
     }
+
+    suspend() {
+        if (this.audioCtx && this.audioCtx.state === 'running') {
+            this.audioCtx.suspend();
+        }
+    }
+
+    resume() {
+        if (this.audioCtx && this.audioCtx.state === 'suspended') {
+            this.audioCtx.resume();
+        }
+    }
+
 }

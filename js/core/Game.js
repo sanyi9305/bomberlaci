@@ -43,7 +43,17 @@ export default class Game {
         this.ui.setupGameOver(() => this.startLevel(), () => this.showMenu());
         this.ui.setupAudioControls(this.audio);
 
+        // Handle page visibility
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                this.audio.suspend();
+            } else {
+                this.audio.resume();
+            }
+        });
+
         this.showMenu();
+
     }
 
     start() {
