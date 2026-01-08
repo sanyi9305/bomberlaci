@@ -1,0 +1,154 @@
+/* Mobile Controls */
+#mobile-controls {
+    display: none;
+    /* Hidden by default, shown on mobile */
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    height: 180px;
+    pointer-events: none;
+    /* Let clicks pass through gaps */
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+.d-pad,
+.action-pad {
+    pointer-events: auto;
+    /* Re-enable clicks on buttons */
+}
+
+.d-pad {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    width: 150px;
+    height: 150px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.action-pad {
+    position: absolute;
+    bottom: 30px;
+    right: 20px;
+}
+
+.d-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+    color: white;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    touch-action: none;
+    /* Prevent browser zooming/scrolling */
+    user-select: none;
+    -webkit-user-select: none;
+    backdrop-filter: blur(4px);
+}
+
+.d-btn:active,
+.d-btn.active {
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(0.95);
+}
+
+/* Grid positioning */
+.d-btn.up {
+    grid-column: 2;
+    grid-row: 1;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.d-btn.left {
+    grid-column: 1;
+    grid-row: 2;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.d-btn.right {
+    grid-column: 3;
+    grid-row: 2;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.d-btn.down {
+    grid-column: 2;
+    grid-row: 3;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.d-center {
+    grid-column: 2;
+    grid-row: 2;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.action-btn {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(231, 76, 60, 0.6);
+    border: 3px solid rgba(255, 255, 255, 0.6);
+    font-size: 2.5rem;
+    color: white;
+    cursor: pointer;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.action-btn:active,
+.action-btn.active {
+    background: rgba(231, 76, 60, 0.8);
+    transform: scale(0.95);
+}
+
+/* Responsive Scaling */
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 1024px) {
+    #mobile-controls {
+        display: block;
+        /* Show on tablets/mobile */
+    }
+
+    .controls {
+        display: none;
+        /* Hide keyboard hint on mobile */
+    }
+
+    #game-container {
+        padding: 10px;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 0;
+    }
+
+    body {
+        align-items: flex-start;
+        /* Better fit for mobile viewports */
+    }
+}
